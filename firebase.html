@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Evig Omsorg CRM</title>
+    <script type="module">
+      // Firebase v10 SDK import (modulbaserad)
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+      import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyD8TEzFdg-LFmY4SeOFzHZHKUJfDmxqmYM",
+        authDomain: "evig-omsorg-crm.firebaseapp.com",
+        projectId: "evig-omsorg-crm",
+        storageBucket: "evig-omsorg-crm.firebasestorage.app",
+        messagingSenderId: "101468330715",
+        appId: "1:101468330715:web:acca4247df7899c42c4afe"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      onAuthStateChanged(auth, user => {
+        if (!user) {
+          const email = prompt("E-post:");
+          const password = prompt("Lösenord:");
+          signInWithEmailAndPassword(auth, email, password).catch(err => {
+            alert("Fel inloggningsuppgifter: " + err.message);
+            location.reload();
+          });
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <noscript>Du måste aktivera JavaScript för att se appen.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
